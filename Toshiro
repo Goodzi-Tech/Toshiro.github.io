@@ -1,0 +1,28 @@
+index.html*
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Toshiro's World</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #111;
+      color: #fff;
+      text-align: center;
+      padding: 50px;
+    }
+    a {
+      color: #00ffee;
+      text-decoration: none;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🌟 Welcome to Toshiro's World 🌟</h1>
+  <p>This is my official content hub. Stay tuned for anime, updates, edits, and more!</p>
+  <a href="https://wa.me/2349120279788">📲 Contact me on WhatsApp</a>
+</body>
+</html>
+
