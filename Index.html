@@ -1,28 +1,33 @@
-index.html*
-```html
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Toshiro's World</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #111;
-      color: #fff;
-      text-align: center;
-      padding: 50px;
+js
+const { default: makeWASocket, useSingleFileAuthState } = require("@whiskeysockets/baileys");
+const { Boom } = require("@hapi/boom");
+
+const { state, saveState } = useSingleFileAuthState("./auth_info.json");
+
+async function startBot() {
+  const sock = makeWASocket({
+    auth: state,
+    printQRInTerminal: true,
+  });
+
+  sock.ev.on("creds.update", saveState);
+
+  sock.ev.on("messages.upsert", async ({ messages }) => {
+    if (!messages || !messages[0]) return;
+    const msg = messages[0];
+    if (msg.key.fromMe) return;
+
+    const from = msg.key.remoteJid;
+    const text = msg.message?.conversation || msg.message?.extendedTextMessage?.text;
+
+    if (!text) return;
+
+    if (text.toLowerCase() === ".menu") {
+      await sock.sendMessage(from, { text: "📋 Toshiro Bot Menu:\n\n1. Stickers\n2. Music\n3. AI\n4. Group tools" });
     }
-    a {
-      color: #00ffee;
-      text-decoration: none;
-      font-size: 18px;
-    }
-  </style>
-</head>
-<body>
-  <h1>🌟 Welcome to Toshiro's World 🌟</h1>
-  <p>This is my official content hub. Stay tuned for anime, updates, edits, and more!</p>
-  <a href="https://wa.me/2349120279788">📲 Contact me on WhatsApp</a>
-</body>
-</html>
+  });
+}
+
+startBot();
+```
 
